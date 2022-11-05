@@ -62,7 +62,7 @@ type CardProps = {
 
 const Card: FC<CardProps> = ({
   type,
-  video: { title, views, createdAt, user },
+  video: { title, views, createdAt, user }
 }) => {
   return (
     <Link to="/video/test" style={{ textDecoration: 'none' }}>
@@ -75,7 +75,7 @@ const Card: FC<CardProps> = ({
           <ChannelImage type={type} src={user.img} />
           <Texts>
             <Title>{title}</Title>
-            <ChannelName>{user.name} asdfsdaf</ChannelName>
+            <ChannelName>{user.name} sadfasfasdfsdaf</ChannelName>
             <Info>
               {views} vviews • {format(createdAt)}
             </Info>
