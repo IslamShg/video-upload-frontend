@@ -22,11 +22,11 @@ const { signInThunk } = videoThunks
 const initialState: State = {
   videos: null,
   loading: false,
-  error: false,
+  error: false
 }
 
 export const videoSlice = createSlice({
-  name: 'videossdff/videoSlice',
+  name: 'videossdfff/videoSlice',
   initialState,
   reducers: {
     logout: () => initialState
