@@ -85,7 +85,7 @@ const Title = styled.h2`
 
 const Menu = ({
   darkMode,
-  setDarkMode
+  setDarkMode,
 }: {
   darkMode: any
   setDarkMode: any
@@ -98,7 +98,7 @@ const Menu = ({
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Logo>
             <Img src={LamaTube} />
-            LamaTube
+            lkjkljj
           </Logo>
         </Link>
         <Item>
