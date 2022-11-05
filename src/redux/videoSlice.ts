@@ -26,7 +26,7 @@ const initialState: State = {
 }
 
 export const videoSlice = createSlice({
-  name: 'videossdfff/videoSlice',
+  name: 'videosssdfdfff/videoSlice',
   initialState,
   reducers: {
     logout: () => initialState
