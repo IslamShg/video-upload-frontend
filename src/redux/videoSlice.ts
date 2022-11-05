@@ -22,7 +22,7 @@ const { signInThunk } = videoThunks
 const initialState: State = {
   videos: null,
   loading: false,
-  error: false,
+  error: false
 }
 
 export const videoSlice = createSlice({
