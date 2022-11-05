@@ -1,15 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link } from "react-router-dom";
+import { VideoCallOutlined } from '@mui/icons-material'
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import { RootState } from '../redux/store'
 
 const Container = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({ theme }) => theme.bgLighter};
   height: 56px;
-`;
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +21,7 @@ const Wrapper = styled.div`
   height: 100%;
   padding: 0px 20px;
   position: relative;
-`;
+`
 
 const Search = styled.div`
   width: 40%;
@@ -32,14 +35,29 @@ const Search = styled.div`
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
-`;
+`
+
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+`
+
+const Avatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #999;
+`
 
 const Input = styled.input`
   border: none;
   background-color: transparent;
   outline: none;
   color: ${({ theme }) => theme.text};
-`;
+`
 
 const Button = styled.button`
   padding: 5px 15px;
@@ -52,8 +70,10 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 5px;
-`;
+`
 const Navbar = () => {
+  const user = useSelector((state: RootState) => state.user.user)
+
   return (
     <Container>
       <Wrapper>
@@ -61,15 +81,23 @@ const Navbar = () => {
           <Input placeholder="Search" />
           <SearchOutlinedIcon />
         </Search>
-        <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
-            <AccountCircleOutlinedIcon />
-            SIGN IN
-          </Button>
-        </Link>
+        {user ? (
+          <User>
+            <VideoCallOutlined />
+            <Avatar />
+            {user.name}
+          </User>
+        ) : (
+          <Link to="signin" style={{ textDecoration: 'none' }}>
+            <Button>
+              <AccountCircleOutlinedIcon />
+              SIGN IN
+            </Button>
+          </Link>
+        )}
       </Wrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

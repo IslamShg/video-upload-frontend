@@ -27,3 +27,9 @@ export type UserType = {
   createdAt?: string
   subscribedUsers: string[]
 }
+
+export type SignInPayload = {
+  name: string
+  email?: string
+  password?: string
+}

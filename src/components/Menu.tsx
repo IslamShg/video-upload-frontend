@@ -18,6 +18,8 @@ import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightnessOutlined'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
 
 const Container = styled.div`
   flex: 1;
@@ -59,7 +61,6 @@ const Hr = styled.hr`
   margin: 15px 0px;
   border: 0.5px solid ${({ theme }) => theme.soft};
 `
-
 const Login = styled.div``
 const Button = styled.button`
   padding: 5px 15px;
@@ -84,11 +85,13 @@ const Title = styled.h2`
 
 const Menu = ({
   darkMode,
-  setDarkMode
+  setDarkMode,
 }: {
   darkMode: any
   setDarkMode: any
 }) => {
+  const user = useSelector((state: RootState) => state.user.user)
+
   return (
     <Container>
       <Wrapper>
@@ -129,16 +132,20 @@ const Menu = ({
           History
         </Item>
         <Hr />
-        <Login>
-          Sign in to like videos, comment, and subscribe.
-          <Link to="signin" style={{ textDecoration: 'none' }}>
-            <Button>
-              <AccountCircleOutlinedIcon />
-              SIGN IN
-            </Button>
-          </Link>
-        </Login>
-        <Hr />
+        {!user && (
+          <>
+            <Login>
+              Sign in to like videos, comment, and subscribe.
+              <Link to="signin" style={{ textDecoration: 'none' }}>
+                <Button>
+                  <AccountCircleOutlinedIcon />
+                  SIGN IN
+                </Button>
+              </Link>
+            </Login>
+            <Hr />
+          </>
+        )}
         <Title>BEST OF LAMATUBE</Title>
         <Item>
           <LibraryMusicOutlinedIcon />

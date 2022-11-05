@@ -72,23 +72,18 @@ const SignIn = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { addUserData } = useUserActions()
+  const { signInThunk } = useUserActions()
 
-  const s = useSelector((s: RootState) => s)
+  const { loading } = useSelector((s: RootState) => s.user)
 
-  console.log('state: ', s)
+  console.log(loading)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      const { data } = await axios.post<UserType>('/auth/signin', {
-        name,
-        password
-      })
-      addUserData(data)
-    } catch (error) {
-      console.log(error)
-    }
+    signInThunk({
+      name,
+      password,
+    })
   }
 
   return (
