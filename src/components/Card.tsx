@@ -62,7 +62,7 @@ type CardProps = {
 
 const Card: FC<CardProps> = ({
   type,
-  video: { title, views, createdAt, user },
+  video: { title, views, createdAt, user }
 }) => {
   return (
     <Link to="/video/test" style={{ textDecoration: 'none' }}>
