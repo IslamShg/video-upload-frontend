@@ -98,7 +98,7 @@ const Menu = ({
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Logo>
             <Img src={LamaTube} />
-            lkjkljj
+            lkjkljjsadfasfsdfaf
           </Logo>
         </Link>
         <Item>
