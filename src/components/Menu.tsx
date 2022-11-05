@@ -85,7 +85,7 @@ const Title = styled.h2`
 
 const Menu = ({
   darkMode,
-  setDarkMode
+  setDarkMode,
 }: {
   darkMode: any
   setDarkMode: any
