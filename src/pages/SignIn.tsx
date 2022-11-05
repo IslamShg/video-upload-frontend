@@ -82,7 +82,7 @@ const SignIn = () => {
     e.preventDefault()
     signInThunk({
       name,
-      password,
+      password
     })
   }
 
