@@ -12,7 +12,6 @@
     "react/prop-types": "off",
     "react/no-unknown-property": "off",
     "no-unused-vars": "warn",
-    "no-trailing-spaces": "error",
-    "comma-dangle": ["error", "never"]
+    "no-trailing-spaces": "error"
   }
 }
