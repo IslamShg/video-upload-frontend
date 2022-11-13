@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import Menu from './components/Menu'
-import Navbar from './components/Navbar'
-import { darkTheme, lightTheme } from './utils/Theme'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
+import Menu from './components/Menu'
+import { darkTheme, lightTheme } from './utils/Theme'
+import Navbar from './components/Navbar'
 import './app/styles/global.scss'
 import { Router } from './app/router'
-import { Provider } from 'react-redux'
-import { store } from './redux/store'
+import { persistor, store } from './redux/store'
 
 const Container = styled.div`
   display: flex;
@@ -29,15 +30,17 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
         <Provider store={store}>
-          <BrowserRouter>
-            <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
-            <Main>
-              <Navbar />
-              <Wrapper>
-                <Router />
-              </Wrapper>
-            </Main>
-          </BrowserRouter>
+          <PersistGate persistor={persistor}>
+            <BrowserRouter>
+              <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+              <Main>
+                <Navbar />
+                <Wrapper>
+                  <Router />
+                </Wrapper>
+              </Main>
+            </BrowserRouter>
+          </PersistGate>
         </Provider>
       </Container>
     </ThemeProvider>

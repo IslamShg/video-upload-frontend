@@ -72,17 +72,23 @@ const SignIn = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { signInThunk } = useUserActions()
+  const { signInThunk, signUpThink } = useUserActions()
 
   const { loading } = useSelector((s: RootState) => s.user)
-
-  console.log(loading)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     signInThunk({
       name,
       password
+    })
+  }
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault()
+    signUpThink({
+      name,
+      password,
+      email
     })
   }
 
@@ -119,7 +125,7 @@ const SignIn = () => {
           type="password"
           placeholder="password"
         />
-        <Button>Sign up</Button>
+        <Button onClick={(e) => handleSignUp(e)}>Sign up</Button>
       </Wrapper>
       <More>
         English(USA)

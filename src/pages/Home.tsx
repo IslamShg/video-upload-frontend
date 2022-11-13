@@ -14,16 +14,20 @@ const Container = styled.div`
 
 const Home = () => {
   const [videos, setVideos] = useState<VideoType[]>([])
+
   const { pathname } = useLocation()
-  const [, videosType] = /\/(\w+)/.exec(pathname) || []
+  const [, videosTypeSlug] = /\/(\w+)/.exec(pathname) || []
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const { data: videos } = await axios.get<VideoType[]>('/videos/random')
+      const videosType = videosTypeSlug ? videosTypeSlug : 'random'
+      const { data: videos } = await axios.get<VideoType[]>(
+        '/videos/' + videosType
+      )
       setVideos(videos)
     }
     fetchVideos()
-  }, [])
+  }, [videosTypeSlug])
 
   return (
     <Container>

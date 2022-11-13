@@ -72,10 +72,10 @@ const Card: FC<CardProps> = ({
           src="https://i9.ytimg.com/vi_webp/k3Vfj-e1Ma4/mqdefault.webp?v=6277c159&sqp=CIjm8JUG&rs=AOn4CLDeKmf_vlMC1q9RBEZu-XQApzm6sA"
         />
         <Details type={type}>
-          <ChannelImage type={type} src={user.img} />
+          <ChannelImage type={type} src={user?.img} />
           <Texts>
             <Title>{title}</Title>
-            <ChannelName>{user.name} sadfasfasdfsdaf</ChannelName>
+            <ChannelName>{user?.name}</ChannelName>
             <Info>
               {views} vviews • {format(createdAt)}
             </Info>

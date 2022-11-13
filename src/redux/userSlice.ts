@@ -21,10 +21,16 @@ const userThunks = {
       const { data } = await axios.post<UserType>('/auth/signin', payload)
       return data
     }
+  ),
+  signUpThink: createAsyncThunk(
+    'user/signup',
+    async (payload: SignInPayload) => {
+      const { data } = await axios.post<UserType>('/auth/signup', payload)
+      return data
+    }
   )
 }
-
-const { signInThunk } = userThunks
+const { signInThunk, signUpThink } = userThunks
 
 const initialState: State = {
   user: null,
@@ -47,6 +53,16 @@ export const userSlice = createSlice({
       state.loading = false
     })
     addCase(signInThunk.rejected, (state) => {
+      state.loading = false
+    })
+    addCase(signUpThink.pending, (state) => {
+      state.loading = true
+    })
+    addCase(signUpThink.fulfilled, (state, { payload }) => {
+      state.user = payload
+      state.loading = false
+    })
+    addCase(signUpThink.rejected, (state) => {
       state.loading = false
     })
   }

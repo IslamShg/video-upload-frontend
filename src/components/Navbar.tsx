@@ -91,7 +91,7 @@ const Navbar = () => {
           <Link to="signin" style={{ textDecoration: 'none' }}>
             <Button>
               <AccountCircleOutlinedIcon />
-              SIGN IN
+              SIGN ffIN
             </Button>
           </Link>
         )}
