@@ -5,15 +5,16 @@ export type VideoType = {
   desc: string
   videoUrl: string
   views: number
-  tags: string
-  likes: string
+  tags: string[]
+  likes: string[]
+  dislikes: string[]
   createdAt?: string
   updatedAt?: string
   user: {
     name: string
+    subscribers: number | string
     img?: string
   }
-  dislikes: string
 }
 
 export type UserType = {

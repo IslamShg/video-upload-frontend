@@ -62,10 +62,10 @@ type CardProps = {
 
 const Card: FC<CardProps> = ({
   type,
-  video: { title, views, createdAt, user }
+  video: { title, views, createdAt, user, _id }
 }) => {
   return (
-    <Link to="/video/test" style={{ textDecoration: 'none' }}>
+    <Link to={`/video/${_id}`} style={{ textDecoration: 'none' }}>
       <Container type={type}>
         <Image
           type={type}

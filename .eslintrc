@@ -13,6 +13,7 @@
     "react/no-unknown-property": "off",
     "no-unused-vars": "warn",
     "no-trailing-spaces": "error",
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "no-constant-condition": "off"
   }
 }
