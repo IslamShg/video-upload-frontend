@@ -17,6 +17,24 @@ type State = {
 }
 
 const videoThunks = {
+  getVideos: createAsyncThunk(
+    'videos/getVideos',
+    async (payload: { type: string }) => {
+      const { data } = await axios.get<VideoType[]>(`/videos/${payload.type}`)
+      return data
+    }
+  ),
+
+  searchVideos: createAsyncThunk(
+    'videos/searchVideos',
+    async ({ q }: { q: string }) => {
+      const { data } = await axios.get<VideoType[]>('/videos/search', {
+        params: { q }
+      })
+      return data
+    }
+  ),
+
   getVideoById: createAsyncThunk(
     'videos/getVideoById',
     async (payload: { videoId: string }) => {
@@ -79,7 +97,9 @@ export const {
   dislikeVideoById,
   likeVideoById,
   getVideoComments,
-  uploadVideo
+  uploadVideo,
+  getVideos,
+  searchVideos
 } = videoThunks
 
 const initialState: State = {
@@ -127,8 +147,12 @@ export const videoSlice = createSlice({
       state.currentVideoComments = payload
     })
 
-    addCase(uploadVideo.fulfilled, (state, { payload }) => {
-      // state.videos = [payload, ...state.videos]
+    addCase(getVideos.fulfilled, (state, { payload }) => {
+      state.videos = payload
+    })
+
+    addCase(searchVideos.fulfilled, (state, { payload }) => {
+      state.videos = payload
     })
   }
 })

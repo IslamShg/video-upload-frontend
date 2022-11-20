@@ -1,10 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Card from '../components/Card'
-import { VideoType } from '../shared'
+import { getVideosSelector } from '../redux/selectors'
+import { useVideoActions } from '../redux/videoSlice'
 
 const Container = styled.div`
   display: flex;
@@ -13,25 +15,24 @@ const Container = styled.div`
 `
 
 const Home = () => {
-  const [videos, setVideos] = useState<VideoType[]>([])
-
   const { pathname } = useLocation()
   const [, videosTypeSlug] = /\/(\w+)/.exec(pathname) || []
 
+  const { getVideos, searchVideos } = useVideoActions()
+  const videos = useSelector(getVideosSelector)
+  const [params] = useSearchParams()
+
   useEffect(() => {
-    const fetchVideos = async () => {
-      const videosType = videosTypeSlug ? videosTypeSlug : 'random'
-      const { data: videos } = await axios.get<VideoType[]>(
-        '/videos/' + videosType
-      )
-      setVideos(videos)
+    if (params.get('search')) {
+      searchVideos({ q: params.get('search') })
+      return
     }
-    fetchVideos()
-  }, [videosTypeSlug])
+    getVideos({ type: videosTypeSlug || 'random' })
+  }, [videosTypeSlug, params])
 
   return (
     <Container>
-      {videos.map((video) => (
+      {videos?.map((video) => (
         <Card key={video._id} video={video} />
       ))}
     </Container>

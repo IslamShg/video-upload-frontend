@@ -1,9 +1,9 @@
 import { VideoCallOutlined } from '@mui/icons-material'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { RootState } from '../redux/store'
@@ -37,6 +37,10 @@ const Search = styled.div`
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  color: ${({ theme }) => theme.text};
+  svg {
+    cursor: pointer;
+  }
 `
 
 const User = styled.div`
@@ -58,6 +62,7 @@ const Input = styled.input`
   border: none;
   background-color: transparent;
   outline: none;
+  width: 100%;
   color: ${({ theme }) => theme.text};
 `
 
@@ -74,16 +79,37 @@ const Button = styled.button`
   gap: 5px;
 `
 const Navbar = () => {
+  const [params] = useSearchParams()
   const [videoModalOpen, setVideoModalOpen] = useState(false)
+  const [searchInputVal, setSearchInputVal] = useState(
+    params.get('search') || ''
+  )
   const user = useSelector((state: RootState) => state.user.user)
+  const navigate = useNavigate()
+
+  const handleSearch = () => {
+    navigate({
+      pathname: '/',
+      search: `?search=${searchInputVal || ''}`
+    })
+  }
 
   return (
     <>
       <Container>
         <Wrapper>
           <Search>
-            <Input placeholder="Search" />
-            <SearchOutlinedIcon />
+            <Input
+              onKeyDown={(event) => {
+                if (event.code === 'Enter') {
+                  handleSearch()
+                }
+              }}
+              value={searchInputVal}
+              onChange={({ target }) => setSearchInputVal(target.value)}
+              placeholder="Search"
+            />
+            <SearchOutlinedIcon onClick={handleSearch} />
           </Search>
           {user ? (
             <User>

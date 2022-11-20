@@ -20,6 +20,7 @@ import {
   getCurrentVidSelector
 } from '../redux/selectors'
 import { useUserActions } from '../redux/userSlice'
+import { Recommendations } from '../components/Recommendations'
 
 const Container = styled.div`
   display: flex;
@@ -106,6 +107,7 @@ const ChannelCounter = styled.span`
 
 const VideoFrame = styled.video`
   max-height: 720px;
+  min-height: 400px;
   width: 100%;
   object-fit: cover;
 `
@@ -168,7 +170,7 @@ const Video = () => {
     <Container>
       <Content>
         <VideoWrapper>
-          <VideoFrame src={videoData?.videoUrl} />
+          <VideoFrame src={videoData?.videoUrl} controls />
         </VideoWrapper>
         <Title>{videoData?.title}</Title>
         <Details>
@@ -225,7 +227,7 @@ const Video = () => {
         <Hr />
         <Comments videoId={videoId} />
       </Content>
-      <Recommendation>{/* <Card type="sm"/>  */}</Recommendation>
+      {videoData?.tags.length > 0 && <Recommendations tags={videoData.tags} />}
     </Container>
   )
 }
