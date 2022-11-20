@@ -16,8 +16,10 @@ import { useVideoActions } from '../redux/videoSlice'
 import { useSelector } from 'react-redux'
 import {
   getCurrentUserSelector,
+  getCurrentVideoAuthorSelector,
   getCurrentVidSelector
 } from '../redux/selectors'
+import { useUserActions } from '../redux/userSlice'
 
 const Container = styled.div`
   display: flex;
@@ -102,6 +104,12 @@ const ChannelCounter = styled.span`
   font-size: 12px;
 `
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`
+
 const Description = styled.p`
   font-size: 14px;
 `
@@ -122,12 +130,22 @@ const Video = () => {
   const videoId = params.id
 
   const { getVideoById, likeVideoById, dislikeVideoById } = useVideoActions()
+  const { getCurrentChannelAuthor, subscribeChannelThunk } = useUserActions()
   const videoData = useSelector(getCurrentVidSelector)
   const userData = useSelector(getCurrentUserSelector)
+  const currentVideoAuthor = useSelector(getCurrentVideoAuthorSelector)
+
+  const isSubscribed = userData?.subscribedUsers.includes(videoData?.userId)
 
   useEffect(() => {
     getVideoById({ videoId })
   }, [])
+
+  useEffect(() => {
+    if (videoData) {
+      getCurrentChannelAuthor({ authorId: videoData.userId })
+    }
+  }, [videoData])
 
   const handleLike = () => {
     const isLiked = videoData?.likes.includes(userData._id)
@@ -141,19 +159,16 @@ const Video = () => {
     dislikeVideoById({ type, userId: userData._id, videoId })
   }
 
+  const subscribeUser = () => {
+    const type = isSubscribed ? 'unsub' : 'sub'
+    subscribeChannelThunk({ type, channelId: videoData.userId })
+  }
+
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="720"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <VideoFrame src={videoData?.videoUrl} />
         </VideoWrapper>
         <Title>{videoData?.title}</Title>
         <Details>
@@ -192,19 +207,23 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src={videoData?.user.img} />
+            <Image src={currentVideoAuthor?.img} />
             <ChannelDetail>
-              <ChannelName>{videoData?.user.name}</ChannelName>
+              <ChannelName>{currentVideoAuthor?.name}</ChannelName>
               <ChannelCounter>
-                {videoData?.user.subscribers} subscribers
+                {currentVideoAuthor?.subscribers} subscribers
               </ChannelCounter>
               <Description>{videoData?.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          {videoData?.userId !== userData?._id && (
+            <Subscribe onClick={subscribeUser}>
+              {isSubscribed ? 'UNSUBSCRIBE' : 'SUBSCRIBE'}
+            </Subscribe>
+          )}
         </Channel>
         <Hr />
-        <Comments />
+        <Comments videoId={videoId} />
       </Content>
       <Recommendation>{/* <Card type="sm"/>  */}</Recommendation>
     </Container>

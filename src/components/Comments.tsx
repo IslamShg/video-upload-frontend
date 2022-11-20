@@ -1,5 +1,11 @@
-import React from 'react'
+import React, { FC, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import {
+  getCurrentUserSelector,
+  getCurrentVidComsSelector
+} from '../redux/selectors'
+import { useVideoActions } from '../redux/videoSlice'
 import Comment from './Comment'
 
 const Container = styled.div``
@@ -26,20 +32,29 @@ const Input = styled.input`
   width: 100%;
 `
 
-const Comments = () => {
+type CommentsProps = {
+  videoId: string
+}
+
+const Comments: FC<CommentsProps> = ({ videoId }) => {
+  const { getVideoComments } = useVideoActions()
+
+  const commentList = useSelector(getCurrentVidComsSelector)
+  const userData = useSelector(getCurrentUserSelector)
+
+  useEffect(() => {
+    getVideoComments({ videoId })
+  }, [])
+
   return (
     <Container>
       <NewComment>
-        <Avatar src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+        <Avatar src={userData?.img} />
         <Input placeholder="Add a comment..." />
       </NewComment>
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
+      {commentList.map((comment) => (
+        <Comment key={comment._id} {...comment} />
+      ))}
     </Container>
   )
 }

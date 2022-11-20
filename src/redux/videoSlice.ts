@@ -6,13 +6,14 @@ import {
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 
-import { VideoType } from '../shared'
+import { VideoType, CommentType, UploadVideoPayload } from '../shared'
 
 type State = {
   videos: VideoType[] | null
   currentVideo: VideoType | null
   loading: boolean
   error: boolean
+  currentVideoComments: CommentType[]
 }
 
 const videoThunks = {
@@ -52,16 +53,41 @@ const videoThunks = {
       await axios.put<VideoType>(`/users/dislike/${videoId}`)
       return { type, videoId, userId }
     }
+  ),
+
+  getVideoComments: createAsyncThunk(
+    'videos/getVideoComments',
+    async (payload: { videoId: string }) => {
+      const { videoId } = payload
+
+      const { data } = await axios.get<CommentType[]>(`/comments/${videoId}`)
+      return data
+    }
+  ),
+
+  uploadVideo: createAsyncThunk(
+    'videos/uploadVideo',
+    async (payload: UploadVideoPayload) => {
+      const { data } = await axios.post<VideoType>('/videos', payload)
+      return data
+    }
   )
 }
 
-const { getVideoById, dislikeVideoById, likeVideoById } = videoThunks
+export const {
+  getVideoById,
+  dislikeVideoById,
+  likeVideoById,
+  getVideoComments,
+  uploadVideo
+} = videoThunks
 
 const initialState: State = {
-  videos: null,
+  videos: [],
   loading: false,
   error: false,
-  currentVideo: null
+  currentVideo: null,
+  currentVideoComments: []
 }
 
 export const videoSlice = createSlice({
@@ -95,6 +121,14 @@ export const videoSlice = createSlice({
       state.currentVideo.likes = state.currentVideo.likes.filter(
         (id) => id !== payload.userId
       )
+    })
+
+    addCase(getVideoComments.fulfilled, (state, { payload }) => {
+      state.currentVideoComments = payload
+    })
+
+    addCase(uploadVideo.fulfilled, (state, { payload }) => {
+      // state.videos = [payload, ...state.videos]
     })
   }
 })

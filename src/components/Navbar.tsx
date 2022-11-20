@@ -1,11 +1,13 @@
 import { VideoCallOutlined } from '@mui/icons-material'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { RootState } from '../redux/store'
+import { Upload } from './Upload'
 
 const Container = styled.div`
   position: sticky;
@@ -72,31 +74,35 @@ const Button = styled.button`
   gap: 5px;
 `
 const Navbar = () => {
+  const [videoModalOpen, setVideoModalOpen] = useState(false)
   const user = useSelector((state: RootState) => state.user.user)
 
   return (
-    <Container>
-      <Wrapper>
-        <Search>
-          <Input placeholder="Search" />
-          <SearchOutlinedIcon />
-        </Search>
-        {user ? (
-          <User>
-            <VideoCallOutlined />
-            <Avatar />
-            {user.name}
-          </User>
-        ) : (
-          <Link to="signin" style={{ textDecoration: 'none' }}>
-            <Button>
-              <AccountCircleOutlinedIcon />
-              SIGN ffIN
-            </Button>
-          </Link>
-        )}
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Wrapper>
+          <Search>
+            <Input placeholder="Search" />
+            <SearchOutlinedIcon />
+          </Search>
+          {user ? (
+            <User>
+              <VideoCallOutlined onClick={() => setVideoModalOpen(true)} />
+              <Avatar />
+              {user.name}
+            </User>
+          ) : (
+            <Link to="signin" style={{ textDecoration: 'none' }}>
+              <Button>
+                <AccountCircleOutlinedIcon />
+                SIGN ffIN
+              </Button>
+            </Link>
+          )}
+        </Wrapper>
+      </Container>
+      {videoModalOpen && <Upload onClose={() => setVideoModalOpen(false)} />}
+    </>
   )
 }
 

@@ -34,3 +34,25 @@ export type SignInPayload = {
   email?: string
   password?: string
 }
+
+export type CommentType = {
+  createdAt: string
+  desc: string
+  updatedAt: string
+  userId: string
+  videoId: string
+  _id: string
+  user: {
+    userId: string
+    userName: string
+    avatarUrl: string
+  }
+}
+
+export type UploadVideoPayload = {
+  tags: string[]
+  title: string
+  desc: string
+  imgUrl: string
+  videoUrl: string
+}
