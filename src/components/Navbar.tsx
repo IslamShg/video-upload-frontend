@@ -1,13 +1,12 @@
 import { VideoCallOutlined } from '@mui/icons-material'
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
-
-import { RootState } from '../redux/store'
-import { Upload } from './Upload'
+import { RootState } from '../app/store'
+import { Upload } from '../features/video'
 
 const Container = styled.div`
   position: sticky;

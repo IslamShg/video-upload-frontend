@@ -9,7 +9,7 @@ import { darkTheme, lightTheme } from './utils/Theme'
 import Navbar from './components/Navbar'
 import './app/styles/global.scss'
 import { Router } from './app/router'
-import { persistor, store } from './redux/store'
+import { persistor, store } from './app/store'
 
 const Container = styled.div`
   display: flex;

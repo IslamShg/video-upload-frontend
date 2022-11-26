@@ -1,4 +1,4 @@
-import { RootState } from './store'
+import { RootState } from '../app/store'
 
 export const getCurrentVidSelector = (state: RootState) =>
   state.video.currentVideo

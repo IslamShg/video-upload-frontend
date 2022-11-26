@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { VideoType } from '../shared'
-import Card from './Card'
+import { VideoType } from '../video.types'
+import { VideoCard } from './VideoCard'
 
 const Recommendation = styled.div`
   flex: 2;
@@ -30,7 +30,7 @@ export const Recommendations: FC<RecommendationsProps> = ({ tags }) => {
   return (
     <Recommendation>
       {recommendedVideos.map((video) => (
-        <Card key={video._id} video={video} />
+        <VideoCard key={video._id} video={video} />
       ))}
     </Recommendation>
   )

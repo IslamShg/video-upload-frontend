@@ -2,8 +2,7 @@ import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { format } from 'timeago.js'
-
-import { VideoType } from '../shared'
+import { VideoType } from '../video.types'
 
 const Container = styled.div`
   width: ${(props: { type: string }) => props.type !== 'sm' && '360px'};
@@ -60,7 +59,7 @@ type CardProps = {
   video: VideoType
 }
 
-const Card: FC<CardProps> = ({
+export const VideoCard: FC<CardProps> = ({
   type,
   video: { title, views, createdAt, user, _id }
 }) => {
@@ -85,5 +84,3 @@ const Card: FC<CardProps> = ({
     </Link>
   )
 }
-
-export default Card

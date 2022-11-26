@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { format } from 'timeago.js'
-import { CommentType } from '../shared'
+import { CommentType } from '../features/video/video.types'
 
 const Container = styled.div`
   display: flex;

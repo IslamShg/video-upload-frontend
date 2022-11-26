@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
+import { useVideoActions } from '../features/video'
 import {
   getCurrentUserSelector,
   getCurrentVidComsSelector
-} from '../redux/selectors'
-import { useVideoActions } from '../redux/videoSlice'
+} from '../shared/selectors'
 import Comment from './Comment'
 
 const Container = styled.div``

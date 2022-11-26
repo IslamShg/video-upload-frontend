@@ -2,9 +2,8 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { RootState } from '../redux/store'
-import { useUserActions } from '../redux/userSlice'
-import { UserType } from '../shared'
+import { RootState } from '../app/store'
+import { useUserActions } from '../features/user/userSlice'
 
 const Container = styled.div`
   display: flex;

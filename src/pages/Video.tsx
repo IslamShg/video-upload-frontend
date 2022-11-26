@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
-import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined'
-import ThumbDownIcon from '@mui/icons-material/ThumbDown'
-import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined'
-import Comments from '../components/Comments'
-import Card from '../components/Card'
-import { useParams } from 'react-router-dom'
-import { UserType, VideoType } from '../shared'
-import axios from 'axios'
-import { format } from 'timeago.js'
-import { useVideoActions } from '../redux/videoSlice'
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined'
+import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import ThumbDownOffAltOutlinedIcon from '@mui/icons-material/ThumbDownOffAltOutlined'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
+import { format } from 'timeago.js'
+import Comments from '../components/Comments'
+import { useUserActions } from '../features/user/userSlice'
+import { useVideoActions } from '../features/video'
+import { Recommendations } from '../features/video/components/Recommendations'
 import {
   getCurrentUserSelector,
   getCurrentVideoAuthorSelector,
   getCurrentVidSelector
-} from '../redux/selectors'
-import { useUserActions } from '../redux/userSlice'
-import { Recommendations } from '../components/Recommendations'
+} from '../shared/selectors'
 
 const Container = styled.div`
   display: flex;

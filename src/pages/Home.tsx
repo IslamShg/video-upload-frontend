@@ -1,12 +1,10 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useParams, useSearchParams } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { useVideoActions, VideoCard } from '../features/video'
 
-import Card from '../components/Card'
-import { getVideosSelector } from '../redux/selectors'
-import { useVideoActions } from '../redux/videoSlice'
+import { getVideosSelector } from '../shared/selectors'
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +31,7 @@ const Home = () => {
   return (
     <Container>
       {videos?.map((video) => (
-        <Card key={video._id} video={video} />
+        <VideoCard key={video._id} video={video} />
       ))}
     </Container>
   )

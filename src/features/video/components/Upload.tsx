@@ -1,18 +1,17 @@
-import { FC, useEffect, useState } from 'react'
-import styled from 'styled-components'
 import {
+  getDownloadURL,
   getStorage,
   ref,
-  uploadBytesResumable,
-  getDownloadURL
+  uploadBytesResumable
 } from 'firebase/storage'
-import { firebaseApp } from '../app/firebase-config'
-import { uploadVideo } from '../redux/videoSlice'
+import { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { VideoType } from '../shared'
-import { useDispatch, useSelector } from 'react-redux'
-import { getVideosSelector } from '../redux/selectors'
-import { useAppDispatch } from '../redux/store'
+import styled from 'styled-components'
+import { firebaseApp } from '../../../app/firebase-config'
+import { useAppDispatch } from '../../../app/store'
+import { getVideosSelector } from '../../../shared/selectors'
+import { uploadVideo } from '../video.slice'
 
 type UploadProps = {
   onClose: () => void

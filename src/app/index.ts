@@ -1,2 +1,2 @@
+export * from './firebase-config'
 export * from './router'
-export * from './store'
